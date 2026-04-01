@@ -1,0 +1,444 @@
+<div class="fixed inset-0 pointer-events-none z-0" style="background: radial-gradient(
+        ellipse 80% 60% at 20% 10%,
+        rgba(123, 90, 74, 0.12) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 80% at 85% 80%,
+        rgba(232, 213, 196, 0.22) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 40% 40% at 50% 50%,
+        rgba(201, 169, 110, 0.06) 0%,
+        transparent 70%
+      );"></div>
+<div class="s1 font-body">
+  @if (showThankYou && thankYouData) {
+    <div style="position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 9999; overflow-y: auto; padding: 20px;">
+      <div style="background: white; border-radius: 12px; padding: 40px; text-align: center; max-width: 700px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.4s ease-out;">
+        
+        <!-- Icon -->
+        <div style="margin-bottom: 30px;">
+          <div style="width: 80px; height: 80px; margin: 0 auto 20px; position: relative; display: flex; align-items: center; justify-content: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#6b5437" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 80px; height: 80px;">
+              <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+              <path d="m9 11 3 3L22 4"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Title and Description -->
+        <h1 style="font-size: 32px; font-weight: 600; color: #6b5437; margin-bottom: 10px;">Registration Confirmed!</h1>
+        <p style="font-size: 16px; color: #666; margin-bottom: 30px;">Thank you for registering for the webinar hosted by Positivty.</p>
+
+        <!-- Info Cards Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 30px;">
+          <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de;">
+            <h3 style="font-size: 12px; color: #999; font-weight: 500; margin-bottom: 8px;">Attendee</h3>
+            <p style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0;">{{ thankYouData.attendee }}</p>
+          </div>
+          <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de;">
+            <h3 style="font-size: 12px; color: #999; font-weight: 500; margin-bottom: 8px;">Email</h3>
+            <p style="font-size: 13px; color: #6b5437; margin: 0; word-break: break-all;">{{ thankYouData.email }}</p>
+          </div>
+          <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de;">
+            <h3 style="font-size: 12px; color: #999; font-weight: 500; margin-bottom: 8px;">Sessions Registered</h3>
+            <p style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0;">{{ thankYouData.sessionsCount }}</p>
+          </div>
+          <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de;">
+            <h3 style="font-size: 12px; color: #999; font-weight: 500; margin-bottom: 8px;">Registration Date</h3>
+            <p style="font-size: 13px; color: #6b5437; margin: 0;">{{ thankYouData.registrationDate }}</p>
+          </div>
+        </div>
+
+        <!-- Session Details -->
+        <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de; margin-bottom: 30px; text-align: left;">
+          <h3 style="font-size: 12px; color: #999; font-weight: 500; margin-bottom: 12px;">Sessions Registered</h3>
+          <p style="font-size: 13px; color: #6b5437; margin: 0; line-height: 1.6;">{{ thankYouData.sessionDetails }}</p>
+        </div>
+
+        <!-- Status Badge -->
+        <div style="margin-bottom: 30px;">
+          <div style="display: inline-block; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; border: 1px solid #c8e6c9;">
+            <span style="font-size: 13px; font-weight: 600; color: #2e7d32;">Status: Confirmed</span>
+          </div>
+        </div>
+
+        <!-- What Happens Next -->
+        <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de; margin-bottom: 30px; text-align: left;">
+          <h3 style="font-size: 16px; font-weight: 600; color: #6b5437; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#6b5437" stroke-width="2" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            What Happens Next?
+          </h3>
+          
+          <div style="margin-bottom: 12px;">
+            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+              <div style="width: 28px; height: 28px; background: #8b6f47; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <span style="color: white; font-weight: 600; font-size: 14px;">1</span>
+              </div>
+              <div style="text-align: left;">
+                <h4 style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0 0 4px 0;">Confirmation Sent</h4>
+                <p style="font-size: 13px; color: #666; margin: 0;">You'll receive a separate email for each session with access details.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+              <div style="width: 28px; height: 28px; background: #8b6f47; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <span style="color: white; font-weight: 600; font-size: 14px;">2</span>
+              </div>
+              <div style="text-align: left;">
+                <h4 style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0 0 4px 0;">Add Events to Calendar</h4>
+                <p style="font-size: 13px; color: #666; margin: 0;">Use the invites to save the webinars to your schedule.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+              <div style="width: 28px; height: 28px; background: #8b6f47; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <span style="color: white; font-weight: 600; font-size: 14px;">3</span>
+              </div>
+              <div style="text-align: left;">
+                <h4 style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0 0 4px 0;">Reminder Emails</h4>
+                <p style="font-size: 13px; color: #666; margin: 0;">We'll send you a nudge before each session to ensure you're ready.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px;">
+            <div style="width: 28px; height: 28px; background: #4caf50; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="color: white; font-weight: 600; font-size: 14px;">4</span>
+            </div>
+            <div style="text-align: left;">
+              <h4 style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0 0 4px 0;">Contact Support</h4>
+                <p style="font-size: 13px; color: #666; margin: 0;">Need changes or have questions? Write to info&#64;positivty.com.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Content -->
+        <div style="padding: 0; margin-bottom: 20px; text-align: center;">
+          <p style="font-size: 13px; color: #666; margin: 0 0 16px 0;">Thanks for signing up for multiple events. Your dedication to mental wellbeing is commendable! Invite a friend, or explore more events on our platform while you wait.</p>
+          
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a href="/webinar-list" style="text-decoration: none;">
+              <button style="padding: 10px 16px; background: white; color: #6b5437; border: 2px solid #6b5437; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
+                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+                Back to Webinars
+              </button>
+            </a>
+            <a href="/" style="text-decoration: none;">
+              <button style="padding: 10px 16px; background: #8b6f47; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 14px;">Homepage</button>
+            </a>
+          </div>
+        </div>
+
+        <p style="font-size: 12px; color: #999; margin: 0; margin-top: 16px;">Redirecting in <strong>{{ redirectCountdown }}</strong> seconds...</p>
+      </div>
+    </div>
+    <style>
+      @keyframes slideUp {
+        from {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  } @else {
+    <header class="tbar">
+    <a href="/" class="logo">
+      <img src="https://webinar.positivty.com/assets/Logo.png" alt="Positivty Logo" class="h-12 w-auto">
+    </a>
+    <div class="tbar-r">
+      <h1 class="pg-ti">Registration</h1>
+      <div class="pg-tg"><span class="rw-pl">Register, Attend & Engage to receive rewards (T&C Apply)</span></div>
+    </div>
+  </header>
+
+  <div class="form-area">
+    <div class="r2">
+      <div class="fi">
+        <label>Full Name <span class="rq">*</span></label>
+        <input type="text" placeholder="e.g. Jane Doe" name="fullName" required [(ngModel)]="fullName">
+      </div>
+      <div class="fi">
+        <label>Organisation <span class="rq">*</span></label>
+        <input type="text" placeholder="e.g. ABC Company" name="organisation" required [(ngModel)]="organisation">
+      </div>
+    </div>
+    <div class="r2">
+      <div class="fi">
+        <label>Email Address <span class="rq">*</span></label>
+        <input type="email" placeholder="jane@example.com" name="email" required email [(ngModel)]="email">
+      </div>
+      <div class="fi">
+        <label>Mobile Number <span class="rq">*</span></label>
+        <input type="tel" placeholder="e.g. +1 (555) 000-0000" name="phone" required [(ngModel)]="mobileNumber">
+      </div>
+    </div>
+
+    <div class="nudge">
+      <span class="ti"><span class="ck">✓</span> Takes less than <strong>30 seconds</strong> · Register once → Attend all selected webinars</span>
+    </div>
+  </div>
+
+  <div class="cta-bar">
+    <button class="sub-btn" (click)="register()" [class.ld]="isSubmitting" [disabled]="isSubmitting || webinars.length === 0">
+      <span class="bt">{{ isSubmitting ? 'Registering...' : 'Register' }}</span>
+      <div class="spin"></div>
+    </button>
+    @if (registrationError) {
+      <div style="color: #d32f2f; padding: 12px 16px; background-color: #ffebee; border-radius: 8px; font-size: 14px; margin-top: 12px; text-align: center;">{{ registrationError }}</div>
+    }
+  </div>
+
+  <section class="pk-sec">
+    <div class="pk-hd">
+      <h2 class="pk-ti">Choose Your Sessions </h2>
+      <div class="pk-ctrl">
+        <span class="sb-badge"><strong>{{selectedWebinars.length}}</strong> selected</span>
+        <button class="ta-btn" (click)="toggleAll()" [disabled]="isLoading">{{ allSelected ? 'Deselect All' : 'Select All' }}</button>
+      </div>
+    </div>
+    <div class="pk-blk">
+      @if (isLoading) {
+        <div style="text-align: center; padding: 40px;">
+          <p>Loading webinars...</p>
+        </div>
+      } @else if (error) {
+        <div style="color: red; padding: 20px; text-align: center; background-color: #ffe6e6; border-radius: 8px;">
+          <p>{{ error }}</p>
+          <button (click)="loadWebinars()" style="margin-top: 10px; padding: 8px 16px; background-color: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer;">Retry</button>
+        </div>
+      } @else if (webinars.length === 0) {
+        <div style="text-align: center; padding: 40px;">
+          <p>No webinars available at the moment.</p>
+        </div>
+      } @else {
+        @for (webinar of visibleWebinars; track webinar.id) {
+          <div class="pc" [class.sl]="webinar.selected" (click)="toggleSelection(webinar)">
+            <div class="chk"></div>
+            <div class="pdt">
+              <span class="pd">{{ webinar.startTime | date:'dd' }}</span>
+              <span class="pm">{{ webinar.startTime | date:'MMM' }}</span>
+            </div>
+            <div class="pi">
+              <div class="ptm">{{ formatTime(webinar.startTime) }} - {{ webinar.duration }} mins ({{ webinar.timezone }})</div>
+              <div class="ptl">{{ webinar.topic }}</div>
+            </div>
+          </div>
+        }
+        @if (hasMoreSessions) {
+          <div style="text-align: center; padding: 20px;">
+            <button (click)="toggleShowMore()" style="padding: 8px 16px; background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 14px; transition: all 0.2s ease;">
+              View {{ showMoreSessions ? '' : remainingSessions }} {{ showMoreSessions ? '' : (remainingSessions === 1 ? 'more session' : 'more sessions') }} {{ showMoreSessions ? '▲' : '▼' }}
+            </button>
+          </div>
+        }
+      }
+    </div>
+  </section>
+
+  @if (upcomingWebinar) {
+    <section class="nx-sec">
+      <div class="eyb"><span class="ldot"></span> Coming Up Next</div>
+      <div class="nx-card">
+        <div class="nx-img">
+          @if (upcomingWebinar.thumbnail) {
+            <img [src]="'https://api.positivty.com/download/' + upcomingWebinar.thumbnail" [alt]="upcomingWebinar.topic" style="width:100%; height:100%; object-fit:cover;">
+          } @else {
+            <div style="width:100%;height:100%;background:linear-gradient(135deg,#8b6f47,#6b5437);display:flex;align-items:center;justify-content:center;font-size:44px">🧠</div>
+          }
+        </div>
+        <div class="nx-body">
+          <div class="nx-meta">
+            <span class="nx-date">{{ upcomingWebinar.startTime | date:'EEEE, d MMMM yyyy, h:mm a' }} {{ upcomingWebinar.timezone }}</span>
+            <span class="nx-upc">Upcoming</span>
+            <span class="nx-daw">In {{ getDaysUntil(upcomingWebinar.startTime) }} day{{ getDaysUntil(upcomingWebinar.startTime) === 1 ? '' : 's' }}</span>
+          </div>
+          <h3 class="nx-ttl">{{ upcomingWebinar.topic }}</h3>
+          <p class="nx-dsc">{{ upcomingWebinar.agenda }}</p>
+          <div class="nx-tags">
+            <span class="nx-tag">Mental Health</span>
+            <span class="nx-tag">Wellness</span>
+          </div>
+          <div class="nx-host">
+            <div class="nx-av">{{ ((upcomingWebinar.panelist || upcomingWebinar.panelistName || 'Expert') | slice:0:2 | uppercase) }}</div>
+            <div>
+              <div class="nx-hn">{{ upcomingWebinar.panelist || upcomingWebinar.panelistName || 'Expert Speaker' }}</div>
+              <div class="nx-hr">{{ upcomingWebinar.panelistDesignation || 'Wellness Expert' }}</div>
+            </div>
+          </div>
+          <div class="nx-acts">
+            <button (click)="openDetailPanel(upcomingWebinar)" style="background-color: #8b6f47; color: white; border: none; padding: 12px 24px; border-radius: 24px; cursor: pointer; font-weight: 500; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;">
+              View Full Details
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+            </button>
+          </div>
+        </div>
+        @if (showDetailPanel && selectedDetailWebinar?.id === upcomingWebinar.id) {
+          <div class="dt-expanded">
+            <div class="dt-sections">
+              <div class="dt-section">
+                <div class="dt-section-label">About This Session</div>
+                <div class="dt-section-body">{{ selectedDetailWebinar?.agenda }}</div>
+              </div>
+              <div class="dt-section">
+                <div class="dt-section-label">Your Host</div>
+                <div class="dt-host-bio">
+                  <div class="dt-bio-av">{{ ((selectedDetailWebinar?.panelist || selectedDetailWebinar?.panelistName || 'Expert') | slice:0:2 | uppercase) }}</div>
+                  <div class="dt-bio-info">
+                    <div class="dt-bio-name">{{ selectedDetailWebinar?.panelist || selectedDetailWebinar?.panelistName || 'Expert Speaker' }}</div>
+                    <div class="dt-bio-role">{{ selectedDetailWebinar?.panelistDesignation || 'Wellness Expert' }}</div>
+                    <div class="dt-bio-txt">{{ selectedDetailWebinar?.panelist || selectedDetailWebinar?.panelistName || 'Expert' }} is an experienced professional with a passion for making evidence-based insights accessible to everyone.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dt-section">
+                <div class="dt-section-label">Session Outline</div>
+                <div class="dt-outline">
+                  <div class="dt-outline-item">
+                    <div class="dt-outline-num">1</div>
+                    <div class="dt-outline-content">
+                      <strong>Introduction</strong>
+                      <div>Setting the context and what to expect from this session</div>
+                    </div>
+                  </div>
+                  <div class="dt-outline-item">
+                    <div class="dt-outline-num">2</div>
+                    <div class="dt-outline-content">
+                      <strong>Core Concepts</strong>
+                      <div>Deep dive into the key ideas and evidence-based frameworks</div>
+                    </div>
+                  </div>
+                  <div class="dt-outline-item">
+                    <div class="dt-outline-num">3</div>
+                    <div class="dt-outline-content">
+                      <strong>Practical Strategies</strong>
+                      <div>Tools and techniques you can apply immediately</div>
+                    </div>
+                  </div>
+                  <div class="dt-outline-item">
+                    <div class="dt-outline-num">4</div>
+                    <div class="dt-outline-content">
+                      <strong>Q&A & Takeaways</strong>
+                      <div>Open questions and your personalised action plan</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button (click)="closeDetailPanel()" class="dt-back-btn">‹ Back to Details</button>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <section class="s3">
+    <div class="sec-lb">Registration Summary</div>
+    <h2 class="sec-ti">Sessions you're signing up for</h2>
+    <p class="sec-su"> You're registering for {{selectedWebinars.length}} session{{selectedWebinars.length === 1 ? '' : 's'}}. </p>
+    
+    @if (selectedWebinars.length === 0) {
+      <div class="s3-empty"> No sessions selected yet. Please pick at least one session from the list above to register. </div>
+    } @else {
+      <div class="s3-list">
+        @for (webinar of selectedWebinars; track webinar.id) {
+          <div class="s3-item">
+            <div class="s3c" (click)="openDetailPanel(webinar)">
+              <div class="s3l">
+                <span class="s3d">{{ webinar.startTime | date:'dd' }}</span>
+                <span class="s3m">{{ webinar.startTime | date:'MMM' }}</span>
+              </div>
+              <div class="s3r">
+                <div class="s3tm">{{ formatTime(webinar.startTime) }} - {{ webinar.duration }} mins ({{ webinar.timezone }})</div>
+                <div class="s3tt">{{ webinar.topic }}</div>
+                <div class="s3ds">{{ webinar.agenda }}</div>
+              </div>
+              <div class="s3ar">›</div>
+            </div>
+            @if (showDetailPanel && selectedDetailWebinar?.id === webinar.id) {
+              <div class="dt-expanded">
+                <div class="dt-sections">
+                  <div class="dt-section">
+                    <div class="dt-section-label">About This Session</div>
+                    <div class="dt-section-body">{{ selectedDetailWebinar?.agenda }}</div>
+                  </div>
+                  <div class="dt-section">
+                    <div class="dt-section-label">Your Host</div>
+                    <div class="dt-host-bio">
+                      <div class="dt-bio-av">{{ ((selectedDetailWebinar?.panelist || selectedDetailWebinar?.panelistName || 'Expert') | slice:0:2 | uppercase) }}</div>
+                      <div class="dt-bio-info">
+                        <div class="dt-bio-name">{{ selectedDetailWebinar?.panelist || selectedDetailWebinar?.panelistName || 'Expert Speaker' }}</div>
+                        <div class="dt-bio-role">{{ selectedDetailWebinar?.panelistDesignation || 'Wellness Expert' }}</div>
+                        <div class="dt-bio-txt">{{ selectedDetailWebinar?.panelist || selectedDetailWebinar?.panelistName || 'Expert' }} is an experienced professional with a passion for making evidence-based insights accessible to everyone.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="dt-section">
+                    <div class="dt-section-label">Session Outline</div>
+                    <div class="dt-outline">
+                      <div class="dt-outline-item">
+                        <div class="dt-outline-num">1</div>
+                        <div class="dt-outline-content">
+                          <strong>Introduction</strong>
+                          <div>Setting the context and what to expect from this session</div>
+                        </div>
+                      </div>
+                      <div class="dt-outline-item">
+                        <div class="dt-outline-num">2</div>
+                        <div class="dt-outline-content">
+                          <strong>Core Concepts</strong>
+                          <div>Deep dive into the key ideas and evidence-based frameworks</div>
+                        </div>
+                      </div>
+                      <div class="dt-outline-item">
+                        <div class="dt-outline-num">3</div>
+                        <div class="dt-outline-content">
+                          <strong>Practical Strategies</strong>
+                          <div>Tools and techniques you can apply immediately</div>
+                        </div>
+                      </div>
+                      <div class="dt-outline-item">
+                        <div class="dt-outline-num">4</div>
+                        <div class="dt-outline-content">
+                          <strong>Q&A & Takeaways</strong>
+                          <div>Open questions and your personalised action plan</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button (click)="closeDetailPanel()" class="dt-back-btn">‹ Back to Registration</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </section>
+
+  <section class="abt">
+    <img src="https://webinar.positivty.com/assets/Logo.png" alt="Positivty Logo" class="h-10 w-auto">
+    <div class="abt-dv"></div>
+    <div class="abt-tx"> A mental health platform helping individuals and organizations build emotional resilience through expert-led therapy, workshops, and community programmes. </div>
+  </section>
+
+  <footer class="ftr"> © 2026 Positivty Platform. All rights reserved. </footer>
+  }
+
+</div>

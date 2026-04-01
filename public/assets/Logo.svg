@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/交000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <g transform="translate(10, 5)">
+    <!-- Lotus Icon (Gold/Brown) -->
+    <path d="M20,35 C20,35 15,20 25,10 C35,20 30,35 30,35 Z" fill="none" stroke="#c4a090" stroke-width="2"/>
+    <path d="M20,35 C20,35 5,25 10,15 C20,15 25,25 25,25 Z" fill="none" stroke="#c4a090" stroke-width="2"/>
+    <path d="M30,35 C30,35 45,25 40,15 C30,15 25,25 25,25 Z" fill="none" stroke="#c4a090" stroke-width="2"/>
+    
+    <!-- Text -->
+    <text x="50" y="32" font-family="'DM Sans', sans-serif" font-size="20" font-weight="600" fill="#4a342a" letter-spacing="2">POSITIVTY</text>
+  </g>
+</svg>

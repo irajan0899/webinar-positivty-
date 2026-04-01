@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+@theme {
+  --font-family-playfair: 'Playfair Display', serif;
+  --font-family-dm-sans: 'DM Sans', sans-serif;
+
+  --color-brand-brown: #836054;
+  --color-brand-brown-dk: #5c3f32;
+  --color-brand-brown-dp: #3e2a1f;
+  --color-brand-brown-md: #9e7060;
+  --color-brand-brown-lt: #c4a090;
+  --color-brand-brown-xl: #e8d5cc;
+  --color-brand-brown-fa: rgba(131, 96, 84, .07);
+  --color-brand-brown-bo: rgba(131, 96, 84, .15);
+  --color-brand-brown-bm: rgba(131, 96, 84, .26);
+  --color-brand-bg: #fcf8f6;
+  --color-brand-bg-card: #fff8ee;
+  --color-brand-bg-sec: #fcf8f6;
+  --color-brand-ye: rgba(255, 243, 186, .45);
+  --color-brand-ye-bo: rgba(200, 170, 80, .22);
+  --color-brand-text: #1e1410;
+  --color-brand-text-md: #4a342a;
+  --color-brand-text-so: #7b5a4a;
+  --color-brand-text-fa: #b8a098;
+  --color-brand-sel: rgba(131, 96, 84, .06);
+}
+
+:root {
+  --br: #836054;
+  --br-dk: #5c3f32;
+  --br-dp: #3e2a1f;
+  --br-md: #9e7060;
+  --br-lt: #c4a090;
+  --br-xl: #e8d5cc;
+  --br-fa: rgba(131, 96, 84, .07);
+  --br-bo: rgba(131, 96, 84, .15);
+  --br-bm: rgba(131, 96, 84, .26);
+  --bg: #fcf8f6;
+  --bg-card: #fff8ee;
+  --bg-sec: #fcf8f6;
+  --white: #fff;
+  --ye: rgba(255, 243, 186, .45);
+  --ye-bo: rgba(200, 170, 80, .22);
+  --tx: #1e1410;
+  --tx-md: #4a342a;
+  --tx-so: #7b5a4a;
+  --tx-fa: #b8a098;
+  --sel: rgba(131, 96, 84, .06);
+  --r1: 8px;
+  --r2: 12px;
+  --r3: 16px;
+  --r4: 20px;
+  --r5: 24px;
+  --s1: 0 1px 6px rgba(131, 96, 84, .09);
+  --s2: 0 4px 20px rgba(131, 96, 84, .11);
+  --s3: 0 10px 40px rgba(131, 96, 84, .14);
+}
+
+body {
+  font-family: 'Playfair Display', serif;
+  color: var(--tx);
+}
+
+/* Base custom styles from the original */
+* {
+  box-sizing: border-box;
+}
+
+.custom-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.custom-scroll::-webkit-scrollbar {
+  display: none;
+}
