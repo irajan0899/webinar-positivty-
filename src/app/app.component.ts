@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+// (removed duplicate and misplaced code)
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { COUNTRIES } from './countries';
 import { WebinarService, Webinar, RegistrationPayload } from './webinar.service';
+// @ts-ignore
+import intlTelInput from 'intl-tel-input';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +14,37 @@ import { WebinarService, Webinar, RegistrationPayload } from './webinar.service'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+    userCountryName: string = '';
+    ngAfterViewInit(): void {
+      this.countryFlag();
+    }
+
+    countryFlag(): void {
+      const phoneNumber = document.querySelector('#phone') as HTMLInputElement;
+      if (phoneNumber) {
+        intlTelInput(phoneNumber, {
+          separateDialCode: true,
+          allowDropdown: true,
+          initialCountry: "auto",
+          geoIpLookup: (callback: any) => {
+            fetch("https://ipapi.co/json")
+              .then(res => res.json())
+              .then((data: any) => {
+                callback(data.country_code);
+                this.userCountryName = data.country_name || 'India';
+              })
+              .catch(() => callback("us"));
+          },
+          hiddenInput: function (telInputName: any) {
+            return {
+              phone: "phone_full",
+              country: "country_code"
+            };
+          }
+        });
+      }
+    }
   countries = COUNTRIES;
   fullName: string = '';
   organisation: string = '';
@@ -107,7 +140,7 @@ export class AppComponent implements OnInit {
           sessionDetails: sessionDetails
         };
         this.showThankYou = true;
-
+        document.body.classList.add('thankyou-modal-open');
         // Start countdown and redirect
         this.startRedirectCountdown();
       },
@@ -127,6 +160,7 @@ export class AppComponent implements OnInit {
 
       if (countdown <= 0) {
         clearInterval(interval);
+        document.body.classList.remove('thankyou-modal-open');
         window.location.href = 'https://www.positivty.com/';
       }
     }, 1000);

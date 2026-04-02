@@ -15,7 +15,7 @@
       );"></div>
 <div class="s1 font-body">
   @if (showThankYou && thankYouData) {
-    <div style="position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 9999; overflow-y: auto; padding: 20px;">
+    <div class="thankyou-overlay">
       <div style="background: white; border-radius: 12px; padding: 40px; text-align: center; max-width: 700px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.4s ease-out;">
         
         <!-- Icon -->
@@ -175,8 +175,8 @@
         <input type="text" placeholder="e.g. Jane Doe" name="fullName" required [(ngModel)]="fullName">
       </div>
       <div class="fi">
-        <label>Organisation <span class="rq">*</span></label>
-        <input type="text" placeholder="e.g. ABC Company" name="organisation" required [(ngModel)]="organisation">
+        <label>Mobile Number <span class="rq">*</span></label>
+        <input type="tel" placeholder="e.g. +1 (555) 000-0000" name="phone" required [(ngModel)]="mobileNumber">
       </div>
     </div>
     <div class="r2">
@@ -185,8 +185,8 @@
         <input type="email" placeholder="jane@example.com" name="email" required email [(ngModel)]="email">
       </div>
       <div class="fi">
-        <label>Mobile Number <span class="rq">*</span></label>
-        <input type="tel" placeholder="e.g. +1 (555) 000-0000" name="phone" required [(ngModel)]="mobileNumber">
+        <label>Organisation <span class="rq">*</span></label>
+        <input type="text" placeholder="e.g. ABC Company" name="organisation" required [(ngModel)]="organisation">
       </div>
     </div>
 
@@ -258,9 +258,7 @@
       <div class="nx-card">
         <div class="nx-img">
           @if (upcomingWebinar.thumbnail) {
-            <img [src]="'https://api.positivty.com/download/' + upcomingWebinar.thumbnail" [alt]="upcomingWebinar.topic" style="width:100%; height:100%; object-fit:cover;">
-          } @else {
-            <div style="width:100%;height:100%;background:linear-gradient(135deg,#8b6f47,#6b5437);display:flex;align-items:center;justify-content:center;font-size:44px">🧠</div>
+            <img [src]="'https://api.positivty.com/' + upcomingWebinar.thumbnail" [alt]="upcomingWebinar.topic" style="width:100%; height:100%; object-fit:cover;">
           }
         </div>
         <div class="nx-body">
