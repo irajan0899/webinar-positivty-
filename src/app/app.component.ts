@@ -1,75 +1,43 @@
-// (removed duplicate and misplaced code)
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { COUNTRIES } from './countries';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PhoneInputComponent } from './phone-input/phone-input.component';
 import { WebinarService, Webinar, RegistrationPayload } from './webinar.service';
-// @ts-ignore
-import intlTelInput from 'intl-tel-input';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, PhoneInputComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
-    userCountryName: string = '';
-    ngAfterViewInit(): void {
-      this.countryFlag();
-    }
+export class AppComponent implements OnInit {
+  phoneForm!: FormGroup;
 
-    countryFlag(): void {
-      const phoneNumber = document.querySelector('#phone') as HTMLInputElement;
-      if (phoneNumber) {
-        intlTelInput(phoneNumber, {
-          separateDialCode: true,
-          allowDropdown: true,
-          initialCountry: "auto",
-          geoIpLookup: (callback: any) => {
-            fetch("https://ipapi.co/json")
-              .then(res => res.json())
-              .then((data: any) => {
-                callback(data.country_code);
-                this.userCountryName = data.country_name || 'India';
-              })
-              .catch(() => callback("us"));
-          },
-          hiddenInput: function (telInputName: any) {
-            return {
-              phone: "phone_full",
-              country: "country_code"
-            };
-          }
-        });
-      }
-    }
-  countries = COUNTRIES;
-  fullName: string = '';
-  organisation: string = '';
-  email: string = '';
-  mobileNumber: string = '';
-  country: string = '';
-  isSubmitting: boolean = false;
-  isLoading: boolean = false;
-  error: string = '';
-  registrationError: string = '';
+  isSubmitting = false;
+  isLoading = false;
+  error = '';
+  registrationError = '';
 
-  // Thank you page state
-  showThankYou: boolean = false;
+  showThankYou = false;
   thankYouData: { attendee: string; email: string; sessionsCount: number; registrationDate: string; sessionDetails: string } | null = null;
-  redirectCountdown: number = 3;
+  redirectCountdown = 3;
 
   webinars: Webinar[] = [];
-  showMoreSessions: boolean = false;
-  readonly sessionsPerPage: number = 4;
+  showMoreSessions = false;
+  readonly sessionsPerPage = 4;
   selectedDetailWebinar: Webinar | null = null;
-  showDetailPanel: boolean = false;
+  showDetailPanel = false;
 
-  constructor(private webinarService: WebinarService) {}
+  constructor(private webinarService: WebinarService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.phoneForm = this.fb.group({
+      fullName: ['', Validators.required],
+      phone: [undefined, [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      organisation: ['']
+    });
     this.loadWebinars();
   }
 
@@ -77,11 +45,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
     this.error = '';
     this.webinarService.getWebinars().subscribe({
-      next: (data) => {
-        this.webinars = data.map(w => ({ ...w, selected: true }));
+      next: (data: Webinar[]) => {
+        this.webinars = data.map((w: Webinar) => ({ ...w, selected: true }));
         this.isLoading = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error fetching webinars:', err);
         this.error = 'Failed to load webinars. Please try again later.';
         this.isLoading = false;
@@ -90,61 +58,48 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   register(): void {
-    // Validation
-    if (!this.fullName.trim() || !this.organisation.trim() || !this.email.trim() || !this.mobileNumber.trim()) {
+    if (this.phoneForm.invalid) {
       this.registrationError = 'Please fill in all required fields.';
+      this.phoneForm.markAllAsTouched();
       return;
     }
-
     if (this.selectedWebinars.length === 0) {
       this.registrationError = 'Please select at least one webinar to register.';
       return;
     }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
-      this.registrationError = 'Please enter a valid email address.';
-      return;
-    }
-
     this.isSubmitting = true;
     this.registrationError = '';
-
-    const nameParts = this.fullName.trim().split(' ');
+    const { fullName, phone, email, organisation } = this.phoneForm.value;
+    const nameParts = fullName.trim().split(' ');
     const firstName = nameParts[0];
     const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
-
     const payload: RegistrationPayload = {
       firstName: firstName,
       lastName: lastName,
-      email: this.email.trim(),
-      contactNumber: this.mobileNumber.trim(),
-      organizationName: this.organisation.trim(),
+      email: email.trim(),
+      contactNumber: phone || '',
+      organizationName: organisation.trim(),
       referrer: 'Positivty',
-      webinarIds: this.selectedWebinars.map(w => w.webinarId?.toString() || w.id.toString())
+      webinarIds: this.selectedWebinars.map((w: Webinar) => w.webinarId?.toString() || w.id.toString())
     };
-
     this.webinarService.registerParticipant(payload).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         this.isSubmitting = false;
-        
         const sessionDetails = this.selectedWebinars
-          .map(w => `${w.topic}, ${new Date(w.startTime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} ${this.formatTime(w.startTime)}`)
+          .map((w: Webinar) => `${w.topic}, ${new Date(w.startTime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} ${this.formatTime(w.startTime)}`)
           .join(',');
-        
-        // Show thank you page
         this.thankYouData = {
-          attendee: this.fullName,
-          email: this.email,
+          attendee: fullName,
+          email: email,
           sessionsCount: this.selectedWebinars.length,
           registrationDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
           sessionDetails: sessionDetails
         };
         this.showThankYou = true;
         document.body.classList.add('thankyou-modal-open');
-        // Start countdown and redirect
         this.startRedirectCountdown();
       },
-      error: (err) => {
+      error: (err: any) => {
         this.isSubmitting = false;
         console.error('Registration error:', err);
         this.registrationError = err.error?.message || 'Registration failed. Please try again.';
@@ -157,7 +112,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     const interval = setInterval(() => {
       countdown--;
       this.redirectCountdown = countdown;
-
       if (countdown <= 0) {
         clearInterval(interval);
         document.body.classList.remove('thankyou-modal-open');
@@ -167,20 +121,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   resetForm(): void {
-    this.fullName = '';
-    this.organisation = '';
-    this.email = '';
-    this.mobileNumber = '';
-    this.country = '';
-    this.webinars.forEach(w => w.selected = false);
+    this.phoneForm.reset();
+    this.webinars.forEach((w: Webinar) => w.selected = false);
     this.registrationError = '';
   }
 
-  get selectedWebinars() {
-    // Only count selected webinars that are visible (upcoming/today)
+  get selectedWebinars(): Webinar[] {
     const now = new Date();
     const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    return this.webinars.filter(w => {
+    return this.webinars.filter((w: Webinar) => {
       if (!w.selected) return false;
       const sessionDate = new Date(w.startTime);
       const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
@@ -188,11 +137,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
-  get visibleWebinars() {
-    // Only show sessions with startTime today or in the future (not past), compare by UTC date
+  get visibleWebinars(): Webinar[] {
     const now = new Date();
     const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    const filtered = this.webinars.filter(w => {
+    const filtered = this.webinars.filter((w: Webinar) => {
       const sessionDate = new Date(w.startTime);
       const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
       return sessionUTC >= todayUTC;
@@ -202,11 +150,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       : filtered.slice(0, this.sessionsPerPage);
   }
 
-  get hasMoreSessions() {
-    // Only consider upcoming/today sessions
+  get hasMoreSessions(): boolean {
     const now = new Date();
     const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    const filtered = this.webinars.filter(w => {
+    const filtered = this.webinars.filter((w: Webinar) => {
       const sessionDate = new Date(w.startTime);
       const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
       return sessionUTC >= todayUTC;
@@ -214,11 +161,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     return filtered.length > this.sessionsPerPage;
   }
 
-  get remainingSessions() {
-    // Only consider upcoming/today sessions
+  get remainingSessions(): number {
     const now = new Date();
     const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    const filtered = this.webinars.filter(w => {
+    const filtered = this.webinars.filter((w: Webinar) => {
       const sessionDate = new Date(w.startTime);
       const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
       return sessionUTC >= todayUTC;
@@ -229,7 +175,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   get upcomingWebinar(): Webinar | null {
     if (this.webinars.length === 0) return null;
     const now = new Date();
-    const upcoming = this.webinars.find(w => new Date(w.startTime) > now);
+    const upcoming = this.webinars.find((w: Webinar) => new Date(w.startTime) > now);
     return upcoming || null;
   }
 
@@ -240,29 +186,29 @@ export class AppComponent implements OnInit, AfterViewInit {
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
   }
 
-  toggleShowMore() {
+  toggleShowMore(): void {
     this.showMoreSessions = !this.showMoreSessions;
   }
 
-  get allSelected() {
+  get allSelected(): boolean {
     return this.webinars.length > 0 && this.selectedWebinars.length === this.webinars.length;
   }
 
-  toggleAll() {
+  toggleAll(): void {
     const shouldSelect = !this.allSelected;
-    this.webinars.forEach(w => w.selected = shouldSelect);
+    this.webinars.forEach((w: Webinar) => w.selected = shouldSelect);
   }
 
-  toggleSelection(webinar: Webinar) {
+  toggleSelection(webinar: Webinar): void {
     webinar.selected = !webinar.selected;
   }
 
-  openDetailPanel(webinar: Webinar) {
+  openDetailPanel(webinar: Webinar): void {
     this.selectedDetailWebinar = webinar;
     this.showDetailPanel = true;
   }
 
-  closeDetailPanel() {
+  closeDetailPanel(): void {
     setTimeout(() => {
       this.showDetailPanel = false;
       this.selectedDetailWebinar = null;

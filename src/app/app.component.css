@@ -120,7 +120,7 @@ body.thankyou-modal-open {
 .pm{font-size:9px;font-weight:500;color:var(--br-md);letter-spacing:.07em;text-transform:uppercase;margin-top:1px}
 .pi{flex:1;min-width:0}
 .ptm{font-size:10px;color:var(--tx-fa);font-weight:500;margin-bottom:2px}
-.ptl{font-family: var(--font-family-playfair); font-size:15.5px;font-weight:400;color:var(--tx);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ptl{font-family: var(--font-family-playfair); font-size:15.5px;font-weight:600;color:#1a1a1a;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .vm-btn{width:100%;margin-top:15px;padding:12px;background:transparent;border:1.5px dashed var(--br-bo);border-radius:var(--r3);color:var(--br);font-size:13.5px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
 .vm-btn:hover{background:var(--br-fa);border-color:var(--br-bm)}
 .vm-btn   svg{width:14px;height:14px;transition:transform .2s}

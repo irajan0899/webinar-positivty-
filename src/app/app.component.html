@@ -168,32 +168,35 @@
     </div>
   </header>
 
-  <div class="form-area">
+  <form class="form-area" [formGroup]="phoneForm" (ngSubmit)="register()">
     <div class="r2">
       <div class="fi">
         <label>Full Name <span class="rq">*</span></label>
-        <input type="text" placeholder="e.g. Jane Doe" name="fullName" required [(ngModel)]="fullName">
+        <input type="text" placeholder="e.g. Jane Doe" formControlName="fullName" required>
+        <div *ngIf="phoneForm.get('fullName')?.invalid && phoneForm.get('fullName')?.touched" style="color: #d32f2f; font-size: 12px;">Full Name is required.</div>
       </div>
       <div class="fi">
         <label>Mobile Number <span class="rq">*</span></label>
-        <input type="tel" placeholder="e.g. +1 (555) 000-0000" name="phone" required [(ngModel)]="mobileNumber">
+        <app-phone-input formControlName="phone" placeholder="Phone Number"></app-phone-input>
+        <div *ngIf="phoneForm.get('phone')?.invalid && phoneForm.get('phone')?.touched" style="color: #d32f2f; font-size: 12px;">Valid phone number is required.</div>
       </div>
     </div>
     <div class="r2">
       <div class="fi">
         <label>Email Address <span class="rq">*</span></label>
-        <input type="email" placeholder="jane@example.com" name="email" required email [(ngModel)]="email">
+        <input type="email" placeholder="jane@example.com" formControlName="email" required>
+        <div *ngIf="phoneForm.get('email')?.invalid && phoneForm.get('email')?.touched" style="color: #d32f2f; font-size: 12px;">Valid email is required.</div>
       </div>
       <div class="fi">
-        <label>Organisation <span class="rq">*</span></label>
-        <input type="text" placeholder="e.g. ABC Company" name="organisation" required [(ngModel)]="organisation">
+        <label>Organisation</label>
+        <input type="text" placeholder="e.g. ABC Company" formControlName="organisation">
       </div>
     </div>
 
     <div class="nudge">
       <span class="ti"><span class="ck">✓</span> Takes less than <strong>30 seconds</strong> · Register once → Attend all selected webinars</span>
     </div>
-  </div>
+  </form>
 
   <div class="cta-bar">
     <button class="sub-btn" (click)="register()" [class.ld]="isSubmitting" [disabled]="isSubmitting || webinars.length === 0">
