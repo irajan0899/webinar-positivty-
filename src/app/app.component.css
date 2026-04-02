@@ -823,6 +823,230 @@ body.thankyou-modal-open {
   gap: 12px;
 }
 
+/* ===== Thank You Page ===== */
+.thank-you {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 20px 24px;
+  text-align: center;
+  font-family: var(--font-family-dm-sans);
+  background: linear-gradient(180deg, #fdf6ee 0%, #faf3ea 40%, #f5ede2 100%);
+  min-height: 100vh;
+}
+.thank-you h1 {
+  font-family: var(--font-family-playfair);
+  font-size: 26px;
+  font-weight: 600;
+  color: #6b5437;
+  margin: 0 0 8px;
+}
+.thank-you .app_text {
+  font-size: 14px;
+  color: #8b6f47;
+  margin: 0 0 28px;
+  font-style: italic;
+}
+
+/* Icon */
+.icon-wrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+}
+.icon-inner {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a96e, #8b6f47);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.check-icon {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+.icon-ping {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #c9a96e;
+  opacity: 0.4;
+  animation: ping 1.5s ease-out infinite;
+}
+@keyframes ping {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* Section & Grid */
+.thank-you .section {
+  margin-bottom: 24px;
+}
+.thank-you .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.thank-you .card {
+  padding: 14px 16px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e8e0d6;
+}
+.thank-you .card h3 {
+  font-size: 11px;
+  color: #999;
+  font-weight: 500;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.thank-you .card p {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+  word-break: break-word;
+}
+.thank-you .grid .card:nth-child(5) {
+  grid-column: 1 / -1;
+}
+
+/* Status Badge */
+.thank-you .status {
+  text-align: center;
+  margin-bottom: 4px;
+}
+.thank-you .status-badge {
+  display: inline-block;
+  padding: 8px 24px;
+  background: #3a3a3a;
+  color: white;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* What Happens Next - Box Card */
+.thank-you .box-cards {
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e8e0d6;
+  background: #fff;
+  text-align: left;
+  margin-bottom: 24px;
+}
+.thank-you .box-cards > h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: none;
+}
+.thank-you .box-cards > h3 svg {
+  width: 20px;
+  height: 20px;
+  color: #8b6f47;
+}
+
+/* Steps */
+.step-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+.step-item:last-child {
+  margin-bottom: 0;
+}
+.step-number {
+  width: 26px;
+  height: 26px;
+  background: #8b6f47;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.step-number.success {
+  background: #4caf50;
+}
+.step-text h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 3px;
+}
+.step-text p {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Footer Content */
+.thank-you .footer-content {
+  background: #faf7f2;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.thank-you .text-muted {
+  font-size: 13px;
+  color: #8b6f47;
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+.thank-you .button-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.thank-you .button-row a {
+  text-decoration: none;
+}
+.thank-you .button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.thank-you .button-outline {
+  background: #3a3a3a;
+  color: white;
+  border: none;
+}
+.thank-you .button-outline svg {
+  width: 14px;
+  height: 14px;
+}
+.thank-you .button-primary {
+  background: #3a3a3a;
+  color: white;
+  border: none;
+}
+
 .dt-outline-num {
   width: 28px;
   height: 28px;

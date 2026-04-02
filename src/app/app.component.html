@@ -15,148 +15,105 @@
       );"></div>
 <div class="s1 font-body">
   @if (showThankYou && thankYouData) {
-    <div class="thankyou-overlay">
-      <div style="background: white; border-radius: 12px; padding: 40px; text-align: center; max-width: 700px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.4s ease-out;">
-        
-        <!-- Icon -->
-        <div style="margin-bottom: 30px;">
-          <div style="width: 80px; height: 80px; margin: 0 auto 20px; position: relative; display: flex; align-items: center; justify-content: center;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#6b5437" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 80px; height: 80px;">
-              <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-              <path d="m9 11 3 3L22 4"></path>
-            </svg>
+    <div class="thank-you">
+      <div class="icon-wrapper">
+        <div class="icon-inner">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon">
+            <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+            <path d="m9 11 3 3L22 4"></path>
+          </svg>
+        </div>
+        <div class="icon-ping"></div>
+      </div>
+
+      <h1>Registration Confirmed!</h1>
+      <p class="app_text">Thank you for registering for the webinar hosted by Positivty.</p>
+
+      <div class="section">
+        <div class="grid">
+          <div class="card">
+            <h3>Attendee</h3>
+            <p>{{ thankYouData.attendee }}</p>
+          </div>
+          <div class="card">
+            <h3>Email</h3>
+            <p>{{ thankYouData.email }}</p>
+          </div>
+          <div class="card">
+            <h3>Sessions Registered</h3>
+            <p>{{ thankYouData.sessionsCount }}</p>
+          </div>
+          <div class="card">
+            <h3>Registration Date</h3>
+            <p>{{ thankYouData.registrationDate }}</p>
+          </div>
+          <div class="card">
+            <h3>Sessions Registered</h3>
+            <p>{{ thankYouData.sessionDetails }}</p>
           </div>
         </div>
 
-        <!-- Title and Description -->
-        <h1 style="font-size: 32px; font-weight: 600; color: #6b5437; margin-bottom: 10px;">Registration Confirmed!</h1>
-        <p style="font-size: 16px; color: #666; margin-bottom: 30px;">Thank you for registering for the webinar hosted by Positivty.</p>
+        <div class="status">
+          <div class="status-badge">Status: Confirmed</div>
+        </div>
+      </div>
 
-        <!-- Info Cards Grid -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 30px;">
-          <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de;">
-            <h3 style="font-size: 12px; color: #999; font-weight: 500; margin-bottom: 8px;">Attendee</h3>
-            <p style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0;">{{ thankYouData.attendee }}</p>
-          </div>
-          <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de;">
-            <h3 style="font-size: 12px; color: #999; font-weight: 500; margin-bottom: 8px;">Email</h3>
-            <p style="font-size: 13px; color: #6b5437; margin: 0; word-break: break-all;">{{ thankYouData.email }}</p>
-          </div>
-          <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de;">
-            <h3 style="font-size: 12px; color: #999; font-weight: 500; margin-bottom: 8px;">Sessions Registered</h3>
-            <p style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0;">{{ thankYouData.sessionsCount }}</p>
-          </div>
-          <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de;">
-            <h3 style="font-size: 12px; color: #999; font-weight: 500; margin-bottom: 8px;">Registration Date</h3>
-            <p style="font-size: 13px; color: #6b5437; margin: 0;">{{ thankYouData.registrationDate }}</p>
+      <div class="card box-cards">
+        <h3>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          What Happens Next?
+        </h3>
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-text">
+            <h4>Confirmation Sent</h4>
+            <p>You'll receive a separate email for each session with access details.</p>
           </div>
         </div>
-
-        <!-- Session Details -->
-        <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de; margin-bottom: 30px; text-align: left;">
-          <h3 style="font-size: 12px; color: #999; font-weight: 500; margin-bottom: 12px;">Sessions Registered</h3>
-          <p style="font-size: 13px; color: #6b5437; margin: 0; line-height: 1.6;">{{ thankYouData.sessionDetails }}</p>
-        </div>
-
-        <!-- Status Badge -->
-        <div style="margin-bottom: 30px;">
-          <div style="display: inline-block; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; border: 1px solid #c8e6c9;">
-            <span style="font-size: 13px; font-weight: 600; color: #2e7d32;">Status: Confirmed</span>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-text">
+            <h4>Add Events to Calendar</h4>
+            <p>Use the invites to save the webinars to your schedule.</p>
           </div>
         </div>
-
-        <!-- What Happens Next -->
-        <div style="padding: 20px; background: #faf7f2; border-radius: 8px; border: 1px solid #efe7de; margin-bottom: 30px; text-align: left;">
-          <h3 style="font-size: 16px; font-weight: 600; color: #6b5437; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#6b5437" stroke-width="2" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
-            What Happens Next?
-          </h3>
-          
-          <div style="margin-bottom: 12px;">
-            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
-              <div style="width: 28px; height: 28px; background: #8b6f47; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <span style="color: white; font-weight: 600; font-size: 14px;">1</span>
-              </div>
-              <div style="text-align: left;">
-                <h4 style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0 0 4px 0;">Confirmation Sent</h4>
-                <p style="font-size: 13px; color: #666; margin: 0;">You'll receive a separate email for each session with access details.</p>
-              </div>
-            </div>
-          </div>
-
-          <div style="margin-bottom: 12px;">
-            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
-              <div style="width: 28px; height: 28px; background: #8b6f47; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <span style="color: white; font-weight: 600; font-size: 14px;">2</span>
-              </div>
-              <div style="text-align: left;">
-                <h4 style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0 0 4px 0;">Add Events to Calendar</h4>
-                <p style="font-size: 13px; color: #666; margin: 0;">Use the invites to save the webinars to your schedule.</p>
-              </div>
-            </div>
-          </div>
-
-          <div style="margin-bottom: 12px;">
-            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
-              <div style="width: 28px; height: 28px; background: #8b6f47; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <span style="color: white; font-weight: 600; font-size: 14px;">3</span>
-              </div>
-              <div style="text-align: left;">
-                <h4 style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0 0 4px 0;">Reminder Emails</h4>
-                <p style="font-size: 13px; color: #666; margin: 0;">We'll send you a nudge before each session to ensure you're ready.</p>
-              </div>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 12px;">
-            <div style="width: 28px; height: 28px; background: #4caf50; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-              <span style="color: white; font-weight: 600; font-size: 14px;">4</span>
-            </div>
-            <div style="text-align: left;">
-              <h4 style="font-size: 14px; font-weight: 600; color: #6b5437; margin: 0 0 4px 0;">Contact Support</h4>
-                <p style="font-size: 13px; color: #666; margin: 0;">Need changes or have questions? Write to info&#64;positivty.com.</p>
-            </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-text">
+            <h4>Reminder Emails</h4>
+            <p>We'll send you a nudge before each session to ensure you're ready.</p>
           </div>
         </div>
-
-        <!-- Footer Content -->
-        <div style="padding: 0; margin-bottom: 20px; text-align: center;">
-          <p style="font-size: 13px; color: #666; margin: 0 0 16px 0;">Thanks for signing up for multiple events. Your dedication to mental wellbeing is commendable! Invite a friend, or explore more events on our platform while you wait.</p>
-          
-          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-            <a href="/webinar-list" style="text-decoration: none;">
-              <button style="padding: 10px 16px; background: white; color: #6b5437; border: 2px solid #6b5437; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 8px;">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
-                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                </svg>
-                Back to Webinars
-              </button>
-            </a>
-            <a href="/" style="text-decoration: none;">
-              <button style="padding: 10px 16px; background: #8b6f47; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 14px;">Homepage</button>
-            </a>
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-text">
+            <h4>Contact Support</h4>
+            <p>Need changes or have questions? Write to info&#64;positivty.com.</p>
           </div>
         </div>
+      </div>
 
-        <p style="font-size: 12px; color: #999; margin: 0; margin-top: 16px;">Redirecting in <strong>{{ redirectCountdown }}</strong> seconds...</p>
+      <div class="footer-content">
+        <p class="text-muted">Thanks for signing up for multiple events. Your dedication to mental wellbeing is commendable! Invite a friend, or explore more events on our platform while you wait.</p>
+        <div class="button-row">
+          <a href="/webinar-list">
+            <button class="button button-outline">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              </svg>
+              BACK TO WEBINARS
+            </button>
+          </a>
+          <a href="/">
+            <button class="button button-primary">HOMEPAGE</button>
+          </a>
+        </div>
       </div>
     </div>
-    <style>
-      @keyframes slideUp {
-        from {
-          transform: translateY(30px);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
-    </style>
   } @else {
     <header class="tbar">
     <a href="/" class="logo">
@@ -188,7 +145,7 @@
         <div *ngIf="phoneForm.get('email')?.invalid && phoneForm.get('email')?.touched" style="color: #d32f2f; font-size: 12px;">Valid email is required.</div>
       </div>
       <div class="fi">
-        <label>Organisation</label>
+        <label>Organisation (optional)</label>
         <input type="text" placeholder="e.g. ABC Company" formControlName="organisation">
       </div>
     </div>

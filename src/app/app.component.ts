@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   showThankYou = false;
   thankYouData: { attendee: string; email: string; sessionsCount: number; registrationDate: string; sessionDetails: string } | null = null;
-  redirectCountdown = 3;
+  redirectCountdown = 5;
 
   webinars: Webinar[] = [];
   showMoreSessions = false;
@@ -96,7 +96,6 @@ export class AppComponent implements OnInit {
           sessionDetails: sessionDetails
         };
         this.showThankYou = true;
-        document.body.classList.add('thankyou-modal-open');
         this.startRedirectCountdown();
       },
       error: (err: any) => {
@@ -108,13 +107,12 @@ export class AppComponent implements OnInit {
   }
 
   private startRedirectCountdown(): void {
-    let countdown = 3;
+    let countdown = 5;
     const interval = setInterval(() => {
       countdown--;
       this.redirectCountdown = countdown;
       if (countdown <= 0) {
         clearInterval(interval);
-        document.body.classList.remove('thankyou-modal-open');
         window.location.href = 'https://www.positivty.com/';
       }
     }, 1000);
