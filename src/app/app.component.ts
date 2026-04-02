@@ -177,21 +177,53 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   get selectedWebinars() {
-    return this.webinars.filter(w => w.selected);
+    // Only count selected webinars that are visible (upcoming/today)
+    const now = new Date();
+    const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    return this.webinars.filter(w => {
+      if (!w.selected) return false;
+      const sessionDate = new Date(w.startTime);
+      const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
+      return sessionUTC >= todayUTC;
+    });
   }
 
   get visibleWebinars() {
-    return this.showMoreSessions || this.webinars.length <= this.sessionsPerPage
-      ? this.webinars
-      : this.webinars.slice(0, this.sessionsPerPage);
+    // Only show sessions with startTime today or in the future (not past), compare by UTC date
+    const now = new Date();
+    const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    const filtered = this.webinars.filter(w => {
+      const sessionDate = new Date(w.startTime);
+      const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
+      return sessionUTC >= todayUTC;
+    });
+    return this.showMoreSessions || filtered.length <= this.sessionsPerPage
+      ? filtered
+      : filtered.slice(0, this.sessionsPerPage);
   }
 
   get hasMoreSessions() {
-    return this.webinars.length > this.sessionsPerPage;
+    // Only consider upcoming/today sessions
+    const now = new Date();
+    const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    const filtered = this.webinars.filter(w => {
+      const sessionDate = new Date(w.startTime);
+      const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
+      return sessionUTC >= todayUTC;
+    });
+    return filtered.length > this.sessionsPerPage;
   }
 
   get remainingSessions() {
-    return this.webinars.length - this.sessionsPerPage;
+    // Only consider upcoming/today sessions
+    const now = new Date();
+    const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    const filtered = this.webinars.filter(w => {
+      const sessionDate = new Date(w.startTime);
+      const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
+      return sessionUTC >= todayUTC;
+    });
+    return filtered.length - this.sessionsPerPage;
   }
 
   get upcomingWebinar(): Webinar | null {

@@ -207,7 +207,7 @@
 
   <section class="pk-sec">
     <div class="pk-hd">
-      <h2 class="pk-ti">Choose Your Sessions </h2>
+      <h2 class="pk-ti">Choose Your Webinars </h2>
       <div class="pk-ctrl">
         <span class="sb-badge"><strong>{{selectedWebinars.length}}</strong> selected</span>
         <button class="ta-btn" (click)="toggleAll()" [disabled]="isLoading">{{ allSelected ? 'Deselect All' : 'Select All' }}</button>
@@ -234,6 +234,7 @@
             <div class="pdt">
               <span class="pd">{{ webinar.startTime | date:'dd' }}</span>
               <span class="pm">{{ webinar.startTime | date:'MMM' }}</span>
+              <span class="py">{{ webinar.startTime | date:'yyyy' }}</span>
             </div>
             <div class="pi">
               <div class="ptm">{{ formatTime(webinar.startTime) }} - {{ webinar.duration }} mins ({{ webinar.timezone }})</div>
@@ -348,11 +349,11 @@
 
   <section class="s3">
     <div class="sec-lb">Registration Summary</div>
-    <h2 class="sec-ti">Sessions you're signing up for</h2>
-    <p class="sec-su"> You're registering for {{selectedWebinars.length}} session{{selectedWebinars.length === 1 ? '' : 's'}}. </p>
+    <h2 class="sec-ti">Webinars you're signing up for</h2>
+    <p class="sec-su"> You're registering for {{selectedWebinars.length}} webinar{{selectedWebinars.length === 1 ? '' : 's'}}. </p>
     
     @if (selectedWebinars.length === 0) {
-      <div class="s3-empty"> No sessions selected yet. Please pick at least one session from the list above to register. </div>
+      <div class="s3-empty"> No webinars selected yet. Please pick at least one webinar from the list above to register. </div>
     } @else {
       <div class="s3-list">
         @for (webinar of selectedWebinars; track webinar.id) {
@@ -361,6 +362,7 @@
               <div class="s3l">
                 <span class="s3d">{{ webinar.startTime | date:'dd' }}</span>
                 <span class="s3m">{{ webinar.startTime | date:'MMM' }}</span>
+                <span class="s3y">{{ webinar.startTime | date:'yyyy' }}</span>
               </div>
               <div class="s3r">
                 <div class="s3tm">{{ formatTime(webinar.startTime) }} - {{ webinar.duration }} mins ({{ webinar.timezone }})</div>
