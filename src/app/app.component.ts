@@ -21,13 +21,16 @@ export class AppComponent implements OnInit {
 
   showThankYou = false;
   thankYouData: { attendee: string; email: string; sessionsCount: number; registrationDate: string; sessionDetails: string } | null = null;
-  redirectCountdown = 5;
+  redirectCountdown = 2;
 
   webinars: Webinar[] = [];
   showMoreSessions = false;
   readonly sessionsPerPage = 4;
   selectedDetailWebinar: Webinar | null = null;
   showDetailPanel = false;
+
+  private readonly byStartTimeAsc = (a: Webinar, b: Webinar): number =>
+    new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
 
   constructor(private webinarService: WebinarService, private fb: FormBuilder) {}
 
@@ -46,7 +49,9 @@ export class AppComponent implements OnInit {
     this.error = '';
     this.webinarService.getWebinars().subscribe({
       next: (data: Webinar[]) => {
-        this.webinars = data.map((w: Webinar) => ({ ...w, selected: true }));
+        this.webinars = data
+          .map((w: Webinar) => ({ ...w, selected: true }))
+          .sort(this.byStartTimeAsc);
         this.isLoading = false;
       },
       error: (err: any) => {
@@ -107,13 +112,13 @@ export class AppComponent implements OnInit {
   }
 
   private startRedirectCountdown(): void {
-    let countdown = 5;
+    let countdown = 2;
     const interval = setInterval(() => {
       countdown--;
       this.redirectCountdown = countdown;
       if (countdown <= 0) {
         clearInterval(interval);
-        window.location.href = 'https://www.positivty.com/';
+        window.location.assign('https://positivty.com/');
       }
     }, 1000);
   }
@@ -132,49 +137,35 @@ export class AppComponent implements OnInit {
       const sessionDate = new Date(w.startTime);
       const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
       return sessionUTC >= todayUTC;
-    });
+    }).sort(this.byStartTimeAsc);
+  }
+
+  private get activeWebinars(): Webinar[] {
+    const now = new Date();
+    const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    return this.webinars.filter((w: Webinar) => {
+      const sessionDate = new Date(w.startTime);
+      const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
+      return sessionUTC >= todayUTC;
+    }).sort(this.byStartTimeAsc);
   }
 
   get visibleWebinars(): Webinar[] {
-    const now = new Date();
-    const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    const filtered = this.webinars.filter((w: Webinar) => {
-      const sessionDate = new Date(w.startTime);
-      const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
-      return sessionUTC >= todayUTC;
-    });
-    return this.showMoreSessions || filtered.length <= this.sessionsPerPage
-      ? filtered
-      : filtered.slice(0, this.sessionsPerPage);
+    return this.showMoreSessions || this.activeWebinars.length <= this.sessionsPerPage
+      ? this.activeWebinars
+      : this.activeWebinars.slice(0, this.sessionsPerPage);
   }
 
   get hasMoreSessions(): boolean {
-    const now = new Date();
-    const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    const filtered = this.webinars.filter((w: Webinar) => {
-      const sessionDate = new Date(w.startTime);
-      const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
-      return sessionUTC >= todayUTC;
-    });
-    return filtered.length > this.sessionsPerPage;
+    return this.activeWebinars.length > this.sessionsPerPage;
   }
 
   get remainingSessions(): number {
-    const now = new Date();
-    const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    const filtered = this.webinars.filter((w: Webinar) => {
-      const sessionDate = new Date(w.startTime);
-      const sessionUTC = Date.UTC(sessionDate.getUTCFullYear(), sessionDate.getUTCMonth(), sessionDate.getUTCDate());
-      return sessionUTC >= todayUTC;
-    });
-    return filtered.length - this.sessionsPerPage;
+    return this.activeWebinars.length - this.sessionsPerPage;
   }
 
   get upcomingWebinar(): Webinar | null {
-    if (this.webinars.length === 0) return null;
-    const now = new Date();
-    const upcoming = this.webinars.find((w: Webinar) => new Date(w.startTime) > now);
-    return upcoming || null;
+    return this.activeWebinars[0] || null;
   }
 
   getDaysUntil(dateString: string): number {
@@ -189,12 +180,12 @@ export class AppComponent implements OnInit {
   }
 
   get allSelected(): boolean {
-    return this.webinars.length > 0 && this.selectedWebinars.length === this.webinars.length;
+    return this.activeWebinars.length > 0 && this.activeWebinars.every((w: Webinar) => w.selected);
   }
 
   toggleAll(): void {
     const shouldSelect = !this.allSelected;
-    this.webinars.forEach((w: Webinar) => w.selected = shouldSelect);
+    this.activeWebinars.forEach((w: Webinar) => w.selected = shouldSelect);
   }
 
   toggleSelection(webinar: Webinar): void {
@@ -206,10 +197,15 @@ export class AppComponent implements OnInit {
     this.showDetailPanel = true;
   }
 
-  closeDetailPanel(): void {
+  closeDetailPanel(scrollTargetId?: string): void {
     setTimeout(() => {
       this.showDetailPanel = false;
       this.selectedDetailWebinar = null;
+
+      if (scrollTargetId) {
+        const target = document.getElementById(scrollTargetId);
+        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }, 300);
   }
 

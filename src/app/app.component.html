@@ -99,7 +99,7 @@
       <div class="footer-content">
         <p class="text-muted">Thanks for signing up for multiple events. Your dedication to mental wellbeing is commendable! Invite a friend, or explore more events on our platform while you wait.</p>
         <div class="button-row">
-          <a href="/webinar-list">
+          <a href="https://www.positivty.com/webinar-list">
             <button class="button button-outline">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
@@ -117,7 +117,7 @@
   } @else {
     <header class="tbar">
     <a href="/" class="logo">
-      <img src="https://webinar.positivty.com/assets/Logo.png" alt="Positivty Logo" class="h-12 w-auto">
+      <img src="assets/Logo.png" alt="Positivty Logo" class="h-12 w-auto">
     </a>
     <div class="tbar-r">
       <h1 class="pg-ti">Registration</h1>
@@ -205,7 +205,7 @@
         @if (hasMoreSessions) {
           <div style="text-align: center; padding: 20px;">
             <button (click)="toggleShowMore()" style="padding: 8px 16px; background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 14px; transition: all 0.2s ease;">
-              View {{ showMoreSessions ? '' : remainingSessions }} {{ showMoreSessions ? '' : (remainingSessions === 1 ? 'more session' : 'more sessions') }} {{ showMoreSessions ? '▲' : '▼' }}
+              {{ showMoreSessions ? 'View less ▲' : ('View ' + remainingSessions + ' ' + (remainingSessions === 1 ? 'more session' : 'more sessions') + ' ▼') }}
             </button>
           </div>
         }
@@ -216,7 +216,7 @@
   @if (upcomingWebinar) {
     <section class="nx-sec">
       <div class="eyb"><span class="ldot"></span> Coming Up Next</div>
-      <div class="nx-card">
+      <div class="nx-card" id="upcoming-details">
         <div class="nx-img">
           @if (upcomingWebinar.thumbnail) {
             <img [src]="'https://api.positivty.com/' + upcomingWebinar.thumbnail" [alt]="upcomingWebinar.topic" style="width:100%; height:100%; object-fit:cover;">
@@ -300,14 +300,14 @@
                 </div>
               </div>
             </div>
-            <button (click)="closeDetailPanel()" class="dt-back-btn">‹ Back to Details</button>
+            <button (click)="closeDetailPanel('upcoming-details')" class="dt-back-btn">‹ Back to Details</button>
           </div>
         }
       </div>
     </section>
   }
 
-  <section class="s3">
+  <section class="s3" id="registration-details">
     <div class="sec-lb">Registration Summary</div>
     <h2 class="sec-ti">Webinars you're signing up for</h2>
     <p class="sec-su"> You're registering for {{selectedWebinars.length}} webinar{{selectedWebinars.length === 1 ? '' : 's'}}. </p>
@@ -383,7 +383,7 @@
                     </div>
                   </div>
                 </div>
-                <button (click)="closeDetailPanel()" class="dt-back-btn">‹ Back to Registration</button>
+                <button (click)="closeDetailPanel('registration-details')" class="dt-back-btn">‹ Back to Registration</button>
               </div>
             }
           </div>
@@ -393,7 +393,7 @@
   </section>
 
   <section class="abt">
-    <img src="https://webinar.positivty.com/assets/Logo.png" alt="Positivty Logo" class="h-10 w-auto">
+    <img src="assets/footer logo.png" alt="Positivty Logo" class="h-10 w-auto">
     <div class="abt-dv"></div>
     <div class="abt-tx"> A mental health platform helping individuals and organizations build emotional resilience through expert-led therapy, workshops, and community programmes. </div>
   </section>
