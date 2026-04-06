@@ -213,4 +213,15 @@ export class AppComponent implements OnInit {
     const date = new Date(dateString);
     return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
   }
+
+  backToRegistrationForm(): void {
+    this.closeDetailPanel();
+    setTimeout(() => {
+      this.phoneForm.reset();
+      this.registrationError = '';
+      this.thankYouData = null;
+      this.showThankYou = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 300);
+  }
 }
