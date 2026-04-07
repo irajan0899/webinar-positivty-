@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
   readonly sessionsPerPage = 4;
   selectedDetailWebinar: Webinar | null = null;
   showDetailPanel = false;
+  selectedCountryIso2 = 'in';
   selectedTimezone = 'Asia/Kolkata';
 
   private readonly byStartTimeAsc = (a: Webinar, b: Webinar): number =>
@@ -43,7 +44,22 @@ export class AppComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       organisation: ['']
     });
+    this.setLocationDefaultsFromBrowser();
     this.loadWebinars();
+  }
+
+  private setLocationDefaultsFromBrowser(): void {
+    const browserTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (!browserTimeZone) {
+      return;
+    }
+
+    this.selectedTimezone = browserTimeZone;
+    const timezoneData = ct.getTimezone(browserTimeZone);
+    const iso2 = timezoneData?.countries?.[0]?.toLowerCase();
+    if (iso2) {
+      this.selectedCountryIso2 = iso2;
+    }
   }
 
   loadWebinars(): void {

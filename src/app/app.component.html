@@ -134,7 +134,7 @@
       </div>
       <div class="fi">
         <label>Mobile Number <span class="rq">*</span></label>
-        <app-phone-input formControlName="phone" placeholder="Phone Number" (countryChange)="onCountryChange($event)"></app-phone-input>
+        <app-phone-input formControlName="phone" [countryIso2]="selectedCountryIso2" placeholder="Phone Number" (countryChange)="onCountryChange($event)"></app-phone-input>
         <div *ngIf="phoneForm.get('phone')?.invalid && phoneForm.get('phone')?.touched" style="color: #d32f2f; font-size: 12px;">Valid phone number is required.</div>
       </div>
     </div>

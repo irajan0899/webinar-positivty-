@@ -1,4 +1,4 @@
-import { Component, forwardRef, ElementRef, HostListener, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, forwardRef, ElementRef, HostListener, ViewChild, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
@@ -347,8 +347,9 @@ export const PHONE_COUNTRIES: PhoneCountry[] = [
     }
   `]
 })
-export class PhoneInputComponent implements ControlValueAccessor {
+export class PhoneInputComponent implements ControlValueAccessor, OnChanges {
   @Input() placeholder = 'Phone Number';
+  @Input() countryIso2 = 'in';
   @Output() countryChange = new EventEmitter<PhoneCountry>();
   @ViewChild('dropdownEl') dropdownEl!: ElementRef;
 
@@ -360,6 +361,18 @@ export class PhoneInputComponent implements ControlValueAccessor {
 
   onChange: (value: string) => void = () => {};
   onTouched: () => void = () => {};
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['countryIso2']?.currentValue) {
+      const iso2 = String(changes['countryIso2'].currentValue).toLowerCase();
+      const match = this.countries.find((c: PhoneCountry) => c.iso2 === iso2);
+      if (match && match.iso2 !== this.selectedCountry.iso2) {
+        this.selectedCountry = match;
+        this.countryChange.emit(this.selectedCountry);
+        this.emitValue();
+      }
+    }
+  }
 
   get filteredCountries(): PhoneCountry[] {
     if (!this.searchQuery) return this.countries;
