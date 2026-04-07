@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PhoneInputComponent } from './phone-input/phone-input.component';
+import * as ct from 'countries-and-timezones';
+import { PhoneInputComponent, PhoneCountry } from './phone-input/phone-input.component';
 import { WebinarService, Webinar, RegistrationPayload } from './webinar.service';
 
 @Component({
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit {
   readonly sessionsPerPage = 4;
   selectedDetailWebinar: Webinar | null = null;
   showDetailPanel = false;
+  selectedTimezone = 'Asia/Kolkata';
 
   private readonly byStartTimeAsc = (a: Webinar, b: Webinar): number =>
     new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
@@ -91,13 +93,13 @@ export class AppComponent implements OnInit {
       next: (response: any) => {
         this.isSubmitting = false;
         const sessionDetails = this.selectedWebinars
-          .map((w: Webinar) => `${w.topic}, ${new Date(w.startTime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} ${this.formatTime(w.startTime)}`)
+          .map((w: Webinar) => `${w.topic}, ${this.formatDate(w.startTime)} ${this.formatTime(w.startTime)}`)
           .join(',');
         this.thankYouData = {
           attendee: fullName,
           email: email,
           sessionsCount: this.selectedWebinars.length,
-          registrationDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+          registrationDate: this.formatDate(new Date().toISOString()),
           sessionDetails: sessionDetails
         };
         this.showThankYou = true;
@@ -209,9 +211,33 @@ export class AppComponent implements OnInit {
     }, 300);
   }
 
+  onCountryChange(country: PhoneCountry): void {
+    this.selectedTimezone = this.getTimezoneForCountry(country.iso2);
+  }
+
+  private getTimezoneForCountry(iso2: string): string {
+    const countryData = ct.getCountry(iso2.toUpperCase());
+    return countryData?.timezones?.[0] || 'Asia/Kolkata';
+  }
+
   formatTime(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    return date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: this.selectedTimezone
+    });
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: this.selectedTimezone
+    });
   }
 
   backToRegistrationForm(): void {

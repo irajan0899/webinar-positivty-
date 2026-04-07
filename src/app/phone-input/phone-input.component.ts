@@ -1,4 +1,4 @@
-import { Component, forwardRef, ElementRef, HostListener, ViewChild, Input } from '@angular/core';
+import { Component, forwardRef, ElementRef, HostListener, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
@@ -349,6 +349,7 @@ export const PHONE_COUNTRIES: PhoneCountry[] = [
 })
 export class PhoneInputComponent implements ControlValueAccessor {
   @Input() placeholder = 'Phone Number';
+  @Output() countryChange = new EventEmitter<PhoneCountry>();
   @ViewChild('dropdownEl') dropdownEl!: ElementRef;
 
   countries = PHONE_COUNTRIES;
@@ -387,6 +388,7 @@ export class PhoneInputComponent implements ControlValueAccessor {
     this.selectedCountry = country;
     this.dropdownOpen = false;
     this.searchQuery = '';
+    this.countryChange.emit(this.selectedCountry);
     this.emitValue();
   }
 
@@ -412,6 +414,7 @@ export class PhoneInputComponent implements ControlValueAccessor {
       const match = this.countries.find(c => value.startsWith(c.dialCode));
       if (match) {
         this.selectedCountry = match;
+        this.countryChange.emit(this.selectedCountry);
         this.phoneNumber = value.replace(match.dialCode, '').trim();
       } else {
         this.phoneNumber = value;

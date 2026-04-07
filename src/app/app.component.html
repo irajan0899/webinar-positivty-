@@ -134,7 +134,7 @@
       </div>
       <div class="fi">
         <label>Mobile Number <span class="rq">*</span></label>
-        <app-phone-input formControlName="phone" placeholder="Phone Number"></app-phone-input>
+        <app-phone-input formControlName="phone" placeholder="Phone Number" (countryChange)="onCountryChange($event)"></app-phone-input>
         <div *ngIf="phoneForm.get('phone')?.invalid && phoneForm.get('phone')?.touched" style="color: #d32f2f; font-size: 12px;">Valid phone number is required.</div>
       </div>
     </div>
@@ -192,12 +192,12 @@
           <div class="pc" [class.sl]="webinar.selected" (click)="toggleSelection(webinar)">
             <div class="chk"></div>
             <div class="pdt">
-              <span class="pd">{{ webinar.startTime | date:'dd' }}</span>
-              <span class="pm">{{ webinar.startTime | date:'MMM' }}</span>
-              <span class="py">{{ webinar.startTime | date:'yyyy' }}</span>
+              <span class="pd">{{ webinar.startTime | date:'dd':selectedTimezone }}</span>
+              <span class="pm">{{ webinar.startTime | date:'MMM':selectedTimezone }}</span>
+              <span class="py">{{ webinar.startTime | date:'yyyy':selectedTimezone }}</span>
             </div>
             <div class="pi">
-              <div class="ptm">{{ formatTime(webinar.startTime) }} - {{ webinar.duration }} mins ({{ webinar.timezone }})</div>
+              <div class="ptm">{{ formatTime(webinar.startTime) }} - {{ webinar.duration }} mins ({{ selectedTimezone }})</div>
               <div class="ptl">{{ webinar.topic }}</div>
             </div>
           </div>
@@ -224,7 +224,7 @@
         </div>
         <div class="nx-body">
           <div class="nx-meta">
-            <span class="nx-date">{{ upcomingWebinar.startTime | date:'EEEE, d MMMM yyyy, h:mm a' }} {{ upcomingWebinar.timezone }}</span>
+            <span class="nx-date">{{ upcomingWebinar.startTime | date:'EEEE, d MMMM yyyy, h:mm a':selectedTimezone }} {{ selectedTimezone }}</span>
             <span class="nx-upc">Upcoming</span>
             <span class="nx-daw">In {{ getDaysUntil(upcomingWebinar.startTime) }} day{{ getDaysUntil(upcomingWebinar.startTime) === 1 ? '' : 's' }}</span>
           </div>
@@ -320,12 +320,12 @@
           <div class="s3-item">
             <div class="s3c" (click)="openDetailPanel(webinar)">
               <div class="s3l">
-                <span class="s3d">{{ webinar.startTime | date:'dd' }}</span>
-                <span class="s3m">{{ webinar.startTime | date:'MMM' }}</span>
-                <span class="s3y">{{ webinar.startTime | date:'yyyy' }}</span>
+                <span class="s3d">{{ webinar.startTime | date:'dd':selectedTimezone }}</span>
+                <span class="s3m">{{ webinar.startTime | date:'MMM':selectedTimezone }}</span>
+                <span class="s3y">{{ webinar.startTime | date:'yyyy':selectedTimezone }}</span>
               </div>
               <div class="s3r">
-                <div class="s3tm">{{ formatTime(webinar.startTime) }} - {{ webinar.duration }} mins ({{ webinar.timezone }})</div>
+                <div class="s3tm">{{ formatTime(webinar.startTime) }} - {{ webinar.duration }} mins ({{ selectedTimezone }})</div>
                 <div class="s3tt">{{ webinar.topic }}</div>
                 <div class="s3ds">{{ webinar.agenda }}</div>
               </div>
